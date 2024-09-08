@@ -1,0 +1,7 @@
+# conda env create -f mpi4py.yaml -p mpi4py-testenv -d
+name: pytorch-testenv
+channels:
+  - file:///Users/benkirk/codes/conda-recipes/output
+  - conda-forge
+dependencies:
+  - libmesh

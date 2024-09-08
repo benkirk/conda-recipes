@@ -98,7 +98,7 @@ python ./configure \
   --with-mumps=1 \
   --with-parmetis=1 \
   --with-pthread=1 \
-  --with-ptscotch=1 \
+  --with-ptscotch=0 \
   --with-shared-libraries \
   --with-ssl=0 \
   --with-scalapack=1 \
@@ -106,8 +106,6 @@ python ./configure \
   --with-superlu_dist=1 \
   --with-superlu_dist-include=$PREFIX/include/superlu-dist \
   --with-superlu_dist-lib=-lsuperlu_dist \
-  --with-suitesparse=1 \
-  --with-suitesparse-dir=$PREFIX \
   --with-x=0 \
   --with-scalar-type=${scalar} \
   "$cuda_c" \

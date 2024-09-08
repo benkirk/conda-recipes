@@ -30,11 +30,11 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
+    - {{ cdt('libx11-devel') }}
     - make
     - pkg-config
     - sed
     - grep
-    - install
     - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
   host:
     - {{ mpi }}
@@ -42,17 +42,24 @@ requirements:
     - hdf5
     - boost <=1.85*
   run:
-    - {{ mpi }}
-    - {{ pin_compatible('petsc', min_pin='x', max_pin='x') }}
+    - grep
     - hdf5
+    - make
+    - pkg-config
+    - sed
+    #- {{ compiler('c') }}
+    #- {{ compiler('cxx') }}
+    #- {{ compiler('fortran') }}
+    - {{ mpi }}
+    - {{ pin_compatible('petsc', min_pin='x.x', max_pin='x.x') }}
 
-# test:
-#   requires:
-#     - pkg-config
-#     - make
-#     - {{ compiler('c') }}
-#     - {{ compiler('cxx') }}
-#     - {{ compiler('fortran') }}
+test:
+  requires:
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
+  commands:
+    - make -C ./examples/introduction/ex4 run
 #   files:
 #     - tests/ex1.c
 #     - tests/ex1f.F90

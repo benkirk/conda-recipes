@@ -1,4 +1,4 @@
-{% set version = "3.21.5" %}
+{% set version = "3.17.5" %}
 {% set build = 1 %}
 
 {% set mpi = mpi or 'mpich' %}
@@ -23,11 +23,11 @@ package:
 
 source:
   url: https://web.cels.anl.gov/projects/petsc/download/release-snapshots/petsc-{{ version }}.tar.gz
-  sha256: 4eb1ec04c1a8988bd524f71f8d7d980dc1853d5be8791c0f19f3c09eef71fdd2
+  #sha256: 4eb1ec04c1a8988bd524f71f8d7d980dc1853d5be8791c0f19f3c09eef71fdd2
   patches:
-    - ignore-not-invalid.patch
+    #- ignore-not-invalid.patch
     - no-cppflags-in-pkgconfig-cflags.patch
-    - target-cudadir.patch
+    #- target-cudadir.patch
 
 build:
   skip: true  # [win]
@@ -80,7 +80,7 @@ requirements:
     - hypre
     - metis
     - parmetis
-    - libptscotch
+    #- libptscotch
     - scalapack
     - superlu
     - superlu_dist
@@ -107,7 +107,7 @@ requirements:
     - hypre
     - metis
     - parmetis
-    - libptscotch
+    #- libptscotch
     - scalapack
     - superlu
     - superlu_dist

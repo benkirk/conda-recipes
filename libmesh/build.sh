@@ -5,7 +5,7 @@ set -ex
     --help
 
 ./configure \
-    CXX=mpicxx CXXFLAGS="-Wno-deprecated-declarations" \
+    CXX=mpicxx CXXFLAGS="-Wno-deprecated-declarations -Wno-unused-but-set-variable" \
     CC=mpicc \
     FC=mpif90 \
     METHODS="devel" \
@@ -19,5 +19,6 @@ set -ex
     --with-boost=$PREFIX \
     --disable-dependency-tracking
 
-make -j 6 --no-print-directory all
-make -j 6 --no-print-directory install
+make -j 6 --no-print-directory --silent all
+make -j 6 --no-print-directory --silent install
+make -j 6 --no-print-directory --silent installcheck

@@ -4,9 +4,10 @@ PBS_ACCOUNT ?= SCSG0001
 
 top_dir := $(shell git rev-parse --show-toplevel)
 config_env := true
-config_conda_build: $(config_env) && conda activate ./conda-build
+config_conda_build := #$(config_env) && which conda && conda activate ./conda_build
 
 #vision_extra_channels := -c file://$(shell pwd)/output
+libmesh_extra_args := -m libmesh/configs/osx_64_mpimpichscalarreal.yaml
 
 %: %.yaml
 	[ -d $@ ] && mv $@ $@.old && rm -rf $@.old &
@@ -17,9 +18,10 @@ config_conda_build: $(config_env) && conda activate ./conda-build
 solve-%: %.yaml
 	$(config_env) && conda env create --file $< --prefix $@ --dry-run
 
-conda-build-%: %
+conda-build-%: %/
+	$(MAKE) conda_build
 	mkdir -p logs/ output/
-	$(config_env) && conda-build $($*_extra_channels) --channel conda-forge --output-folder output/ ./$< 2>&1 | tee logs/$*.log
+	conda-build $($*_extra_channels) --channel conda-forge --output-folder output/ $($*_extra_args) ./$< 2>&1 | tee logs/$*.log
 
 pbs-build-%: %
 	PATH=/glade/derecho/scratch/vanderwb/experiment/pbs-bashfuncs/bin:$$PATH ;\
