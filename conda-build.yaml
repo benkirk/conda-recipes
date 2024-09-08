@@ -1,0 +1,7 @@
+name: conda-build
+channels:
+  - conda-forge
+dependencies:
+  - python
+  - conda-build
+  - conda-tree
