@@ -1,0 +1,6 @@
+[submodule "derecho-pytorch-mpi"]
+	path = derecho-pytorch-mpi
+	url = git@github.com:benkirk/derecho-pytorch-mpi.git
+[submodule "petsc/upstream"]
+	path = petsc/upstream
+	url = https://github.com/conda-forge/petsc-feedstock.git
