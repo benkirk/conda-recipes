@@ -1,2 +1,5 @@
 *~
-conda-build/
+TAGS
+conda_build/
+logs/
+output/
