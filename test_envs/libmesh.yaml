@@ -4,4 +4,6 @@ channels:
   - file:///Users/benkirk/codes/conda-recipes/output
   - conda-forge
 dependencies:
-  - libmesh
+  - libmesh =1.6.*
+  - python
+  - conda-tree

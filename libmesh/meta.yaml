@@ -1,4 +1,4 @@
-{% set version = "1.7.1" %}
+{% set version = "1.6.2" %}
 {% set build = 1 %}
 
 {% set mpi = mpi or 'mpich' %}
@@ -30,28 +30,33 @@ requirements:
     - {{ stdlib('c') }}
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
-    - {{ cdt('libx11-devel') }}
     - make
     - pkg-config
-    - sed
-    - grep
     - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
   host:
     - {{ mpi }}
-    - petsc =3.17.*
+    - {{ cdt('libx11-devel') }}
+    - {{ cdt('libxt-devel') }}
+    #- petsc =3.17.*
+    - petsc =3.16.*
     - hdf5
     - boost <=1.85*
+    - sed
+    - grep
+    - eigen
+    - tbb-devel
   run:
+    - eigen
     - grep
     - hdf5
     - make
     - pkg-config
     - sed
-    #- {{ compiler('c') }}
-    #- {{ compiler('cxx') }}
-    #- {{ compiler('fortran') }}
     - {{ mpi }}
     - {{ pin_compatible('petsc', min_pin='x.x', max_pin='x.x') }}
+    - {{ compiler('c') }}
+    - {{ compiler('cxx') }}
+    - {{ compiler('fortran') }}
 
 test:
   requires:
@@ -59,7 +64,8 @@ test:
     - {{ compiler('cxx') }}
     - {{ compiler('fortran') }}
   commands:
-    - make -C ./examples/introduction/ex4 run
+    - test -f "${PREFIX}/Make.common"
+    - OMPI_CXX=${CXX} OMPI_CC=${CC} make -C ${PREFIX}/examples/introduction/ex4 example{-opt,devel}
 #   files:
 #     - tests/ex1.c
 #     - tests/ex1f.F90

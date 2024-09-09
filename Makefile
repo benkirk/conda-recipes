@@ -7,7 +7,7 @@ config_env := true
 config_conda_build := #$(config_env) && which conda && conda activate ./conda_build
 
 #vision_extra_channels := -c file://$(shell pwd)/output
-libmesh_extra_args := -m libmesh/configs/osx_64_mpimpichscalarreal.yaml
+libmesh_extra_args := -m libmesh/configs/osx_64_mpiopenmpiscalarreal.yaml
 
 %: %.yaml
 	[ -d $@ ] && mv $@ $@.old && rm -rf $@.old &
