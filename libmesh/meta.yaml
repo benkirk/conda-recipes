@@ -32,6 +32,7 @@ requirements:
     - {{ compiler('fortran') }}
     - make
     - pkg-config
+    - m4
     - {{ mpi }}  # [mpi == 'openmpi' and build_platform != target_platform]
   host:
     - {{ mpi }}
