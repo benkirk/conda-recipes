@@ -65,7 +65,8 @@ test:
     - {{ compiler('fortran') }}
   commands:
     - test -f "${PREFIX}/Make.common"
-    - OMPI_CXX=${CXX} OMPI_CC=${CC} make -C ${PREFIX}/examples/introduction/ex4 example{-opt,devel}
+    - METHOD="opt" OMPI_CXX=${CXX} OMPI_CC=${CC} make -C ${PREFIX}/examples/introduction/ex4 example-opt
+    - METHOD="devel" OMPI_CXX=${CXX} OMPI_CC=${CC} make -C ${PREFIX}/examples/introduction/ex4 example-devel
 #   files:
 #     - tests/ex1.c
 #     - tests/ex1f.F90
