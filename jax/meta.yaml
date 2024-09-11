@@ -1,0 +1,82 @@
+{% set version_env = "0.4.31" %}
+
+package:
+  name: jax
+  version: '{{ version_env }}_derecho'
+
+source:
+   - path: ../../profile.d/modules.sh
+
+build:
+  number: 1000 # high priortity over other matches at same version
+  string: {{ environ.get('NCAR_BUILD_ENV_COMPILER').replace('derecho-','').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  script_env:
+    - NCAR_BUILD_ENV
+    - NCAR_BUILD_ENV_COMPILER
+
+  # we're really abusing conda-build here.  This package will only work
+  # on Derecho with cray-mpich - therefore it will have many dependent
+  # shared libraries outside the conda-build source tree.  That's OK,
+  # if distasteful.  Allow it.
+  host_runpath_whitelist:
+    - '/opt/cray/*'
+    - '/glade/u/apps/*'
+  missing_dso_whitelist:
+    - '*/libcublas.so.*'
+    - '*/libcublasLt.so.*'
+    - '*/libcuda*.so.*'
+    - '*/libcudnn.so.*'
+    - '*/libcufft.so.*'
+    - '*/libcupti.so.*'
+    - '*/libcurand.so.*'
+    - '*/libcusolver.so.*'
+    - '*/libcusparse.so.*'
+    - '*/libfabric.so.*'
+    - '*/libmpi_*.so*'
+    - '*/libnccl.so.*'
+    - '*/libnvToolsExt.so.*'
+    - '*/libnvrtc.so.*'
+    - '*/libpals.so.*'
+    - '*/libpmi*.so.*'
+    - '*/libpthread.so.0'
+    - '/lib64/ld-linux-x86-64.so.2'
+    - '/lib64/libc.so.6'
+    - '/lib64/libdl.so.2'
+    - '/lib64/libgcc_s.so.1'
+    - '/lib64/libm.so.6'
+    - '/lib64/librt.so.1'
+    - '/usr/lib64/libgomp.so.1'
+    - '/usr/lib64/libnuma.so.1'
+    - '/usr/lib64/libstdc++.so.6'
+
+requirements:
+  # the 'short list' is to install from a wheel, the longer list
+  # is if we wanted to repeat the compilation inside the conda-build env
+  build:
+    - python
+    - pip
+    - wheel
+
+  run:
+    - python
+    - nccl =*_derecho
+    - mpi4py =*_derecho
+    - numpy >=1.24
+    - opt-einsum
+    - scipy >=1.10
+    - ml_dtypes >=0.2.0
+    - importlib-metadata >=4.6
+    - libgcc >=12
+    - jaxlib =={{ version_env }}_derecho
+
+test:
+  imports:
+    - jax
+    - jax._src
+
+about:
+  home: https://github.com/google/jax
+  license: Apache-2.0
+  license_family: APACHE
+  #license_file: LICENSE
+  summary: Differentiate, compile, and transform Numpy code

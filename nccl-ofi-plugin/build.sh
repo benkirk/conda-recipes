@@ -6,8 +6,11 @@ echo "PREFIX=${PREFIX}"
 echo "PYTHON=${PYTHON}"
 
 # then add the NCCL plugin dependency so it makes it into the final package
+cp -r ${RECIPE_DIR}/../../profile.d .
+cp -r ${RECIPE_DIR}/../../utils .
+
 export INSTALL_DIR="${PREFIX}"
-make -C ${RECIPE_DIR}/../.. nccl-ofi
+./utils/build_nccl-ofi-plugin.sh
 rm -vf ${INSTALL_DIR}/lib/libnccl_static.a
 unset INSTALL_DIR
 

@@ -1,6 +1,7 @@
 SHELL := /bin/bash -l
 
 PBS_ACCOUNT ?= SCSG0001
+ENV_PYTHON_VERSION ?= "3.11"
 
 top_dir := $(shell git rev-parse --show-toplevel)
 config_env := ml conda
@@ -20,11 +21,11 @@ solve-%: %.yaml
 	$(config_env) && conda env create --file $< --prefix $@ --dry-run
 
 conda-build-%: %/
-	$(MAKE) conda_build
+	$(MAKE) --silent conda_build
 	mkdir -p logs/ output/
-	$(config_conda_build) && conda-build $($*_extra_channels) --channel conda-forge --output-folder output/ $($*_extra_args) ./$< 2>&1 | tee logs/$*.log
+	$(config_conda_build) && conda-build --python $(ENV_PYTHON_VERSION) $($*_extra_channels) --channel conda-forge --output-folder output/ $($*_extra_args) ./$< 2>&1 | tee logs/$*.log
 
 pbs-build-%: %
 	PATH=/glade/derecho/scratch/vanderwb/experiment/pbs-bashfuncs/bin:$$PATH ;\
-          qcmd -q main -A $(PBS_ACCOUNT) -l walltime=1:00:00 -l select=1:ncpus=128 \
+          qcmd -q main -A $(PBS_ACCOUNT) -l walltime=2:00:00 -l select=1:ncpus=128 \
           -- $(MAKE) conda-build-$*
