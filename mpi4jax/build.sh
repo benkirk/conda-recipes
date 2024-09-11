@@ -13,15 +13,13 @@ module unload mkl conda >/dev/null 2>&1
 module load cudnn/9.2.0.82-12 >/dev/null 2>&1
 module list
 
-PIP_NO_DEPENDENCIES=False
-PIP_NO_INDEX=False
-PIP_NO_BUILD_ISOLATION=True
-PIP_IGNORE_INSTALLED=False
+echo "CUDA_HOME=${CUDA_HOME}"
+
+cat pyproject.toml
 
 python -m \
        pip install \
-       --verbose --no-build-isolation --no-deps \
-       jax[cuda12_local]==${PKG_VERSION//_derecho/} \
-       -f https://storage.googleapis.com/jax-releases/jax_releases.html
+       --verbose --no-deps --no-build-isolation \
+       .
 
 conda list

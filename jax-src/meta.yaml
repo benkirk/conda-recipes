@@ -1,7 +1,7 @@
 {% set version_env = "0.4.32" %}
 
 package:
-  name: jaxlib
+  name: jax
   version: '{{ version_env }}_derecho'
 
 source:
@@ -55,12 +55,11 @@ requirements:
     - nccl =*_derecho
     - pkg-config
     - rsync
-    - nccl =*_derecho
+    - jaxlib =={{ version_env }}_derecho
 
   run:
     - python
-    - nccl =*_derecho
-    - mpi4py =*_derecho
+    - jaxlib =={{ version_env }}_derecho
     - numpy >=1.24
     - opt-einsum
     - scipy >=1.10
@@ -71,9 +70,8 @@ requirements:
 
 test:
   imports:
-    - jaxlib
-    # Only this import actually triggers the load of XLA
-    - jaxlib.xla_client
+    - jax
+    - jax._src
 
 about:
   home: https://github.com/google/jax

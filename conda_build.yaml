@@ -2,6 +2,7 @@ name: conda-build
 channels:
   - conda-forge
 dependencies:
-  - python
+  - python =3.11.*
   - conda-build
   - conda-tree
+  - conda-verify

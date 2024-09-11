@@ -27,5 +27,5 @@ conda-build-%: %/
 
 pbs-build-%: %
 	PATH=/glade/derecho/scratch/vanderwb/experiment/pbs-bashfuncs/bin:$$PATH ;\
-          qcmd -q main -A $(PBS_ACCOUNT) -l walltime=2:00:00 -l select=1:ncpus=128 \
+          qcmd -q main -A $(PBS_ACCOUNT) -l walltime=2:00:00 -l select=1:ncpus=128 -l job_priority=premium \
           -- $(MAKE) conda-build-$*

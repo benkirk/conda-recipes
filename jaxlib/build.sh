@@ -24,7 +24,7 @@ PIP_IGNORE_INSTALLED=False
 python -m \
        pip install \
        --verbose --no-build-isolation \
-       jax[cuda12]==${PKG_VERSION//_derecho/} \
+       jax[cuda12_local]==${PKG_VERSION//_derecho/} \
        -f https://storage.googleapis.com/jax-releases/jax_releases.html
 
 conda list
@@ -34,13 +34,20 @@ python -m \
        --yes \
        jax nvidia-nccl-cu12
 
-# override provided NCCL with our AWS-plugin enabled version
-cp -r ${RECIPE_DIR}/../../profile.d .
-cp -r ${RECIPE_DIR}/../../utils .
-export INSTALL_DIR="${SP_DIR}/nccl"
-rm -rf ${INSTALL_DIR}
-./utils/build_nccl-ofi-plugin.sh
-rm -vf ${INSTALL_DIR}/lib/libnccl_static.a
-unset INSTALL_DIR
-
 conda list
+
+module purge >/dev/null 2>&1
+module load cuda cudnn/9
+module list
+echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
+
+# create an activate script
+# other flags for consideration: https://github.com/NVIDIA/JAX-Toolbox/blob/main/rosetta/docs/GPU_performance.md
+mkdir -p "${PREFIX}/etc/conda/activate.d"
+cat <<EOF > "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
+export ${PKG_NAME}_hostdeps_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}"
+export XLA_FLAGS="--xla_gpu_cuda_data_dir=${CUDA_HOME}"
+EOF
+
+cat "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"

@@ -1,10 +1,13 @@
-{% set version_env = "0.4.32" %}
+{% set name = "mpi4jax" %}
+{% set version_env = "0.5.3" %}
 
 package:
-  name: jaxlib
+  name: {{ name|lower }}
   version: '{{ version_env }}_derecho'
 
 source:
+   - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version_env }}.tar.gz
+     sha256: 3d11b44c8ecd0b8c6f2c1b2ca2712690c14365c2eb2ed73aff7775df8c64eb7b
    - path: ../../profile.d/modules.sh
 
 build:
@@ -52,31 +55,25 @@ build:
 requirements:
   build:
     - python
-    - nccl =*_derecho
-    - pkg-config
-    - rsync
+    - cython
+    - mpi4py =*_derecho
+    - jaxlib ==0.4.31_derecho
+    - jax ==0.4.31_derecho
 
   run:
     - python
-    - nccl =*_derecho
+    - numpy
     - mpi4py =*_derecho
-    - numpy >=1.24
-    - opt-einsum
-    - scipy >=1.10
-    - ml_dtypes >=0.2.0
-    - importlib-metadata >=4.6
-    - libgcc >=12
-    - libstdcxx >=12
-
-test:
-  imports:
-    - jaxlib
-    # Only this import actually triggers the load of XLA
-    - jaxlib.xla_client
+    - jaxlib ==0.4.31_derecho
+    - jax ==0.4.31_derecho
 
 about:
-  home: https://github.com/google/jax
-  license: Apache-2.0
-  license_family: APACHE
-  #license_file: LICENSE
-  summary: Differentiate, compile, and transform Numpy code
+  home: https://github.com/mpi4jax/mpi4jax
+  license: MIT
+  license_family: MIT
+  license_file: LICENSE.md
+  summary: MPI support for JAX
+  description: |
+    Zero-copy MPI communication of JAX arrays, for turbo-charged HPC applications in Python ⚡
+  doc_url: https://mpi4jax.readthedocs.io
+  dev_url: https://github.com/mpi4jax/mpi4jax
