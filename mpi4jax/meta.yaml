@@ -66,6 +66,9 @@ requirements:
     - mpi4py =*_derecho
     - jaxlib ==0.4.31_derecho
     - jax ==0.4.31_derecho
+    - libgcc >=12
+    - libstdcxx >=12
+
 
 about:
   home: https://github.com/mpi4jax/mpi4jax

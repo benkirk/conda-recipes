@@ -1,4 +1,4 @@
-name: credit
+name: mpi4jax
 channels:
   - file:///glade/derecho/scratch/benkirk/derecho-pytorch-mpi-devel/conda-recipes/output
   - conda-forge
@@ -6,7 +6,5 @@ channels:
 dependencies:
   - python=3.11
   - mpi4jax =*_derecho
-
-  #- pip
-  #- pip:
-  #  - jax[cuda12] -f https://storage.googleapis.com/jax-releases/jax_releases.html
+  - matplotlib
+  - tqdm

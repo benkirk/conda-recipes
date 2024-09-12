@@ -1,4 +1,4 @@
-name: credit
+name: jax
 channels:
   - file:///glade/derecho/scratch/benkirk/derecho-pytorch-mpi-devel/conda-recipes/output
   - conda-forge
@@ -6,6 +6,4 @@ channels:
 dependencies:
   - python=3.11
   - jax ==0.4.31_derecho
-  #- pip
-  #- pip:
-  #  - jax[cuda12] -f https://storage.googleapis.com/jax-releases/jax_releases.html
+  - pip

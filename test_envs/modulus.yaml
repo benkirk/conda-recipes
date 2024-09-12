@@ -1,0 +1,35 @@
+name: modulus
+channels:
+  - file:///glade/derecho/scratch/benkirk/derecho-pytorch-mpi-devel/conda-recipes/output
+  - conda-forge
+  #- dglteam/label/th23_cu121
+
+dependencies:
+  - python
+  - cmake
+  - conda-tree
+  - h5py # needed for modulus-examples/examples/weather/graphcast
+  - hdf5 =1.12.*
+  - mpi4py =*_derecho
+  - netcdf4
+  - numpy <2
+  - pytorch =2.3.*_derecho
+  - torchvision =*_derecho
+  #- dgl=2.0.*
+  - pip
+  - pip:
+      - pipdeptree
+      #- nvidia-modulus[all]
+      - nvidia-modulus[launch]
+      - warp-lang # needed for modulus-examples/examples/cfd/darcy_fno
+      - dgl -f https://data.dgl.ai/wheels/torch-2.3/repo.html
+      - apex
+      - pyramid==1.5
+
+# Apex from source:
+# pip uninstall apex
+# git clone https://www.github.com/nvidia/apex
+# cd apex
+# python3 setup.py install
+
+# NVTE_FRAMEWORK=pytorch pip install git+https://github.com/NVIDIA/TransformerEngine.git@stable
