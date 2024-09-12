@@ -1,3 +1,6 @@
 [submodule "petsc/upstream"]
 	path = petsc/upstream
 	url = https://github.com/conda-forge/petsc-feedstock.git
+[submodule "src_builds/derecho-pytorch-mpi"]
+	path = src_builds/derecho-pytorch-mpi
+	url = git@github.com:benkirk/derecho-pytorch-mpi.git

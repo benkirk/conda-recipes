@@ -1,6 +1,6 @@
 name: mpi4jax
 channels:
-  - file:///glade/derecho/scratch/benkirk/derecho-pytorch-mpi-devel/conda-recipes/output
+  - file:///glade/derecho/scratch/benkirk/conda-recipes/output
   - conda-forge
 
 dependencies:
