@@ -44,4 +44,4 @@ rm -vf ${INSTALL_DIR}/lib/libnccl_static.a
 
 # create an activate script with NCCL settings
 mkdir -p "${PREFIX}/etc/conda/activate.d"
-cp ${RECIPE_DIR}/../profile.d/derecho-nccl-aws-ofi.cfg "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
+cp ${RECIPE_DIR}/derecho-nccl-aws-ofi.cfg "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
