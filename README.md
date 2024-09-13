@@ -123,8 +123,27 @@ done
 ```
 
 ### `pytorch` & `torchvision`
+First, we will build a suite of wheel files in `
 ```bash
-make pbs-build-{torch,vision}
+# First, we will build a suite of wheel files in ./src_builds/derecho-pytorch-mpi/wheels/
+cd ./src_builds/derecho-pytorch-mpi/
+time ./utils/build_all.sh
+[...]
+
+cd -
+
+# then we will create conda packages from all the resultant wheel files.
+PYTHONS=("3.12" "3.11" "3.10")
+PYTORCH_VISIONS=("2.4.1:0.19.1" "2.3.1:0.18.1" "2.2.2:0.17.2")
+
+for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
+    export ENV_PYTHON_VERSION
+    for pair in "${PYTORCH_VISIONS[@]}"; do
+        export PYTORCH_VERSION=$(echo ${pair} | cut -d ':' -f1)
+        export TORCHVISION_VERSION=$(echo ${pair} | cut -d ':' -f2)
+        make pbs-build-{torch,vision}
+    done
+done
 ```
 
 ### `jaxlib`, `jax` & `mpi4jax`
