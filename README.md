@@ -99,3 +99,9 @@ Builds NCCL + the AWS OFI plugin using Derecho's `libfabric`.
 ```bash
 make conda-build-nccl-ofi-plugin
 ```
+The resulting `conda` environment will contain an activation script with optimal NCCL default settings from `nccl-ofi-plugin/derecho-nccl-aws-ofi.cfg`.
+
+### `pytorch` & `torchvision`
+```bash
+make pbs-build-{torch,vision}
+```
