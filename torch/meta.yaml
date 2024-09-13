@@ -17,6 +17,7 @@ build:
   host_runpath_whitelist:
     - '/opt/cray/*'
     - '/glade/u/apps/*'
+
   missing_dso_whitelist:
     - '*/libcublas.so.*'
     - '*/libcublasLt.so.*'
@@ -55,7 +56,6 @@ requirements:
 
   run:
     - python
-    #- ffmpeg >=4.2.2,<5
     #- llvm-openmp
     - cusparselt==0.6.2.3
     #- libstdcxx-ng #>=12.2
@@ -91,7 +91,7 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file:
-    - '../../pytorch-v{{ version_env }}/LICENSE'
-    - '../../pytorch-v{{ version_env }}/NOTICE'
-    - '../../pytorch-v{{ version_env }}/third_party/pybind11/LICENSE'
+    - '../src_builds/derecho-pytorch-mpi/pytorch-v{{ version_env }}/LICENSE'
+    - '../src_builds/derecho-pytorch-mpi/pytorch-v{{ version_env }}/NOTICE'
+    - '../src_builds/derecho-pytorch-mpi/pytorch-v{{ version_env }}/third_party/pybind11/LICENSE'
   summary: PyTorch is an optimized tensor library for deep learning using GPUs and CPUs (built to run on Derecho using the host-provided cray-mpich MPI library).

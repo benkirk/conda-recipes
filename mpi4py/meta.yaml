@@ -2,9 +2,6 @@ package:
   name: mpi4py
   version: '{{ environ.get('MPI4PY_VERSION', '4.0.0') }}_derecho'
 
-source:
-   - path: ../../profile.d/modules.sh
-
 build:
   number: 1000 # high priortity over other matches at same version
   string: {{ environ.get('NCAR_BUILD_ENV').replace('derecho-','').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}

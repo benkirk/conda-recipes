@@ -5,14 +5,11 @@ package:
   version: '{{ version_env }}_derecho'
 
 source:
-   - path: ../../profile.d/modules.sh
+   - path: ../profile.d/modules.sh
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: {{ environ.get('NCAR_BUILD_ENV_COMPILER').replace('derecho-','').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
-  script_env:
-    - NCAR_BUILD_ENV
-    - NCAR_BUILD_ENV_COMPILER
+  string: cuda12_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
 
   # we're really abusing conda-build here.  This package will only work
   # on Derecho with cray-mpich - therefore it will have many dependent

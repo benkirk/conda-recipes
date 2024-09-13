@@ -5,11 +5,15 @@ ENV_PYTHON_VERSION ?= "3.11"
 
 top_dir := $(shell git rev-parse --show-toplevel)
 config_env := ml conda
-config_conda_build := $(config_env) && conda activate ./conda_build && which conda
-
+config_conda_build := $(config_env) && conda activate ./conda_build
 #vision_extra_channels := -c file://$(shell pwd)/output
 libmesh_extra_args := -m libmesh/configs/osx_64_mpiopenmpiscalarreal.yaml
 
+# about patch-post.py:
+# total hack: conda-build likes to strip all rpaths that point to host directories. Which
+# makes perfect sense for the typical use case.  However, here we want to keep those, as
+# we are building packages designed only to run on this host, intentionally.
+# (patch created by: diff -Naur conda_build/post.py{.old,} > <patchfile>)
 %: %.yaml
 	[ -d $@ ] && mv $@ $@.old && rm -rf $@.old &
 	$(MAKE) solve-$*
@@ -29,3 +33,12 @@ pbs-build-%: %
 	PATH=/glade/derecho/scratch/vanderwb/experiment/pbs-bashfuncs/bin:$$PATH ;\
           qcmd -q main -A $(PBS_ACCOUNT) -l walltime=2:00:00 -l select=1:ncpus=128 -l job_priority=premium \
           -- $(MAKE) conda-build-$*
+
+clean:
+	git clean -xdf --exclude=output/ --exclude=logs/ --exclude=conda_build/
+
+clobber:
+	git clean -xdf --exclude=output/ --exclude=logs/
+
+distclean:
+	git clean -xdf

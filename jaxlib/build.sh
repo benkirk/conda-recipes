@@ -2,9 +2,6 @@
 
 env
 
-ncar_build_env_label="${NCAR_BUILD_ENV_COMPILER//-/.}"
-echo "NCAR_BUILD_ENV_COMPILER=${NCAR_BUILD_ENV_COMPILER}"
-echo ncar_build_env_label="${ncar_build_env_label}"
 echo "SRC_DIR=${SRC_DIR}"
 echo "RECIPE_DIR=${RECIPE_DIR}"
 echo "PREFIX=${PREFIX}"
@@ -13,7 +10,7 @@ echo "pip=$(which pip)"
 
 source modules.sh >/dev/null 2>&1
 module unload mkl conda >/dev/null 2>&1
-module load cudnn/9.2.0.82-12 >/dev/null 2>&1
+module load cudnn/9 >/dev/null 2>&1
 module list
 
 PIP_NO_DEPENDENCIES=False
@@ -21,6 +18,7 @@ PIP_NO_INDEX=False
 PIP_NO_BUILD_ISOLATION=True
 PIP_IGNORE_INSTALLED=False
 
+# install jax with local cuda, this will install jaxlib as a dependency and make sure everything is consistent
 python -m \
        pip install \
        --verbose --no-build-isolation \
@@ -29,6 +27,7 @@ python -m \
 
 conda list
 
+# remove the jax API, we'll reinstall it later in the jax recipe
 python -m \
        pip uninstall \
        --yes \
@@ -36,8 +35,8 @@ python -m \
 
 conda list
 
-module purge >/dev/null 2>&1
-module load cuda cudnn/9
+#module purge >/dev/null 2>&1
+#module load cuda/12.2.1 cudnn/9
 module list
 echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 
@@ -46,8 +45,19 @@ echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 mkdir -p "${PREFIX}/etc/conda/activate.d"
 cat <<EOF > "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
 export ${PKG_NAME}_hostdeps_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
-export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH}:${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="\${${PKG_NAME}_hostdeps_LD_LIBRARY_PATH}:\${LD_LIBRARY_PATH}"
 export XLA_FLAGS="--xla_gpu_cuda_data_dir=${CUDA_HOME}"
 EOF
 
-cat "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
+
+mkdir -p "${PREFIX}/etc/conda/deactivate.d"
+cat <<EOF > "${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh"
+export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH#"\${${PKG_NAME}_hostdeps_LD_LIBRARY_PATH}:"}"
+unset ${PKG_NAME}_hostdeps_LD_LIBRARY_PATH
+unset XLA_FLAGS
+EOF
+
+for fname in ${PREFIX}/etc/conda/*activate.d/${PKG_NAME}_*activate.sh; do
+    echo && echo && echo "# ${fname}:"
+    cat ${fname}
+done

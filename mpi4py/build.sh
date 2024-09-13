@@ -3,7 +3,7 @@
 # run via:
 # conda-build --output-folder output/ ./mpi4py 2>&1 | tee conda_build_mpi4py.log
 
-source modules.sh >/dev/null 2>&1
+source ${RECIPE_DIR}/../profile.d/modules.sh >/dev/null 2>&1
 module unload cudnn mkl >/dev/null 2>&1
 module list
 

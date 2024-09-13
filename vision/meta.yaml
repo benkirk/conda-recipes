@@ -19,6 +19,7 @@ build:
   host_runpath_whitelist:
     - '/opt/cray/*'
     - '/glade/u/apps/*'
+
   missing_dso_whitelist:
     - '*/libcublas.so.*'
     - '*/libcublasLt.so.*'
@@ -86,6 +87,6 @@ about:
   license: BSD-3-Clause
   license_family: BSD
   license_file:
-    - '../../vision-v{{ version_env }}/LICENSE'
+    - '../src_builds/derecho-pytorch-mpi/vision-v{{ version_env }}/LICENSE'
   summary: Image and video datasets and models for torch deep learning (built to run on Derecho using the host-provided libraries).
   dev_url: https://github.com/pytorch/vision

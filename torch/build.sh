@@ -12,4 +12,4 @@ echo "PYTHON=${PYTHON}"
 python -m \
        pip install \
        --no-deps --verbose \
-       ${RECIPE_DIR}/../../wheels/torch-${PKG_VERSION//_derecho/}+${ncar_build_env_label}-*${PY_VER//./}*-linux_x86_64.whl
+       ${RECIPE_DIR}/../src_builds/derecho-pytorch-mpi/wheels/torch-${PKG_VERSION//_derecho/}+${ncar_build_env_label}-*${PY_VER//./}*-linux_x86_64.whl
