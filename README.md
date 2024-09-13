@@ -101,7 +101,33 @@ make conda-build-nccl-ofi-plugin
 ```
 The resulting `conda` environment will contain an activation script with optimal NCCL default settings from `nccl-ofi-plugin/derecho-nccl-aws-ofi.cfg`.
 
+### `mpi4py`
+```bash
+source profile.d/modules.sh
+make conda-build-mpi4py
+```
+
+```bash
+source profile.d/modules.sh
+
+PYTHONS=("3.12" "3.11" "3.10")
+MPI4PYS=("4.0.0" "3.1.6")
+
+for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
+    export ENV_PYTHON_VERSION
+    for MPI4PY_VERSION in "${MPI4PYS[@]}"; do
+        export MPI4PY_VERSION
+        make conda-build-mpi4py
+    done
+done
+```
+
 ### `pytorch` & `torchvision`
 ```bash
 make pbs-build-{torch,vision}
+```
+
+### `jaxlib`, `jax` & `mpi4jax`
+```bash
+make conda-build-{jaxlib,jax,mpi4jax}
 ```
