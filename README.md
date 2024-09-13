@@ -24,6 +24,7 @@ and introduce the configurable `host_runpath_whitelist`.
 # creates ./conda_build/ from ./conda_build.yaml
 make conda-build
 ```
+(If this step is omitted, it will be run automatically when a package is built.)
 
 ### Create a `conda` package
 ```bash
