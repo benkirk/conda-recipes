@@ -47,6 +47,12 @@ Output for successful builds are placed in the `./output/` directory.
 conda search -c file://$(pwd)/output --override-channels -i
 ```
 
+## Installing from the local channel into a `conda` environment
+You can select these packages in a `conda` `environment.yaml` file as follows:
+```pre
+```
+The special version string `*_derecho` can be used to force the dependecy solver to use our local packages regardless of overall channel priority.
+
 ## Support for multiple package, python versions
 ```bash
 #!/usr/bin/env bash                                                                                                     
@@ -86,9 +92,9 @@ done
 ```
 
 ## `conda-build` documentation
-https://docs.conda.io/projects/conda-build/en/stable/
-- https://docs.conda.io/projects/conda-build/en/stable/concepts/recipe.html
-- https://docs.conda.io/projects/conda-build/en/stable/resources/index.html
+[Overview](https://docs.conda.io/projects/conda-build/en/stable/)
+- [Concepts and Build Process](https://docs.conda.io/projects/conda-build/en/stable/concepts/recipe.html)
+- [References](https://docs.conda.io/projects/conda-build/en/stable/resources/index.html)
 
 ---
 
@@ -123,7 +129,7 @@ done
 ```
 
 ### `pytorch` & `torchvision`
-First, we will build a suite of wheel files in `
+First, we will build a suite of wheel files in `./src_builds/derecho-pytorch-mpi/wheels/` by directly compiling `pytorch` and `torchvision` from source. These will then serve as source packages later in the `conda-build` process.
 ```bash
 # First, we will build a suite of wheel files in ./src_builds/derecho-pytorch-mpi/wheels/
 cd ./src_builds/derecho-pytorch-mpi/
