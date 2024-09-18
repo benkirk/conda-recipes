@@ -9,7 +9,7 @@ git clone --recurse-submodules https://github.com/benkirk/conda-recipes.git
 cd conda-recipes/
 ```
 ### Create a minimal `conda` environment containing `conda-build`
-We patch `conda-build` in this step specifically to override its `RPATH` stripping.
+We [patch](https://github.com/benkirk/conda-recipes/blob/main/README.md) `conda-build` in this step specifically to override its `RPATH` stripping.
 
 `conda-build` likes to strip all rpaths that point to host
 directories, which makes perfect sense for the typical use case -
