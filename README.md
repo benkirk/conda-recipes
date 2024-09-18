@@ -50,6 +50,19 @@ conda search -c file://$(pwd)/output --override-channels -i
 ## Installing from the local channel into a `conda` environment
 You can select these packages in a `conda` `environment.yaml` file as follows:
 ```pre
+name: resnet
+channels:
+  - file:///<full_path_to>/conda-recipes/output
+  - conda-forge
+dependencies:
+  - python
+  - libblas =*=*mkl
+  - numpy
+  - mpi4py =*_derecho
+  - xarray
+  - pandas
+  - pytorch =*_derecho
+  - torchvision =*_derecho
 ```
 The special version string `*_derecho` can be used to force the dependecy solver to use our local packages regardless of overall channel priority.
 
