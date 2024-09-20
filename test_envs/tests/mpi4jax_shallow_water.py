@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """mpi4jax demo application -- Shallow water
 
 A non-linear shallow water solver, adapted from:
@@ -17,7 +16,6 @@ Usage examples:
     $ mpirun -n 4 python shallow_water.py --benchmark
 
 """
-# ref https://mpi4jax.readthedocs.io/en/latest/_downloads/bf5ed4495162a3f924375679ada74dce/shallow_water.py
 
 import os
 import sys
