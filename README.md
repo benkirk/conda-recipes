@@ -7,6 +7,8 @@ A set of tools for creating custom `conda` packages using `conda-build`
 - [Concepts and Build Process](https://docs.conda.io/projects/conda-build/en/stable/concepts/recipe.html)
 - [References](https://docs.conda.io/projects/conda-build/en/stable/resources/index.html)
 
+Additionally, the [conda-forge feedstock](https://github.com/conda-forge) recipes contain `conda-build` examples for thousands of packages, for example see their [mpi4py recipe](https://github.com/conda-forge/mpi4py-feedstock/tree/main/recipe).
+
 ## Quickstart
 ### Clone, including submodules
 ```pre
