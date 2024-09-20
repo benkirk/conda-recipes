@@ -2,6 +2,11 @@
 
 A set of tools for creating custom `conda` packages using `conda-build`
 
+## `conda-build` documentation
+[Overview](https://docs.conda.io/projects/conda-build/en/stable/)
+- [Concepts and Build Process](https://docs.conda.io/projects/conda-build/en/stable/concepts/recipe.html)
+- [References](https://docs.conda.io/projects/conda-build/en/stable/resources/index.html)
+
 ## Quickstart
 ### Clone, including submodules
 ```pre
@@ -101,14 +106,20 @@ for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
     done
 
 done
-
 ```
+---
+## Test environments from built packages
 
-## `conda-build` documentation
-[Overview](https://docs.conda.io/projects/conda-build/en/stable/)
-- [Concepts and Build Process](https://docs.conda.io/projects/conda-build/en/stable/concepts/recipe.html)
-- [References](https://docs.conda.io/projects/conda-build/en/stable/resources/index.html)
+The `./test_envs` directory contains a number of `conda` environment YAML files that install from the local channel to test the built packages.  For example:
+```bash
+cd ./test_envs
+# create a conda environment ./mpi4py from ./mpi4py.yaml
+make mpi4py
 
+# activate & inspect:
+conda activate ./mpi4py/
+conda list
+```
 ---
 
 ## Supported packages
