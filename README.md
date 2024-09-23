@@ -74,6 +74,7 @@ dependencies:
 The special version string `*_derecho` can be used to force the dependecy solver to use our local packages regardless of overall channel priority.
 
 ## Support for multiple package, python versions
+The script `./utils/build_all.sh` will loop over 3 Python versions and various versions of the supported tools, building `conda` packages for each.
 ```bash
 #!/usr/bin/env bash                                                                                                     
 
@@ -109,6 +110,8 @@ for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
 
 done
 ```
+Running the the full suite as listed above takes approximately 5 hours, assuming you have already run `make conda_build` *first*.
+
 ---
 ## Test environments from built packages
 
@@ -158,10 +161,11 @@ done
 First, we will build a suite of wheel files in `./src_builds/derecho-pytorch-mpi/wheels/` by directly compiling `pytorch` and `torchvision` from source. These will then serve as source packages later in the `conda-build` process.
 ```bash
 # First, we will build a suite of wheel files in ./src_builds/derecho-pytorch-mpi/wheels/
+# Expect 3-4 hours or more if starting completely from scratch with no source code checked out.
 cd ./src_builds/derecho-pytorch-mpi/
 time ./utils/build_all.sh
 [...]
-
+real	185m1.008s
 cd -
 
 # then we will create conda packages from all the resultant wheel files.
