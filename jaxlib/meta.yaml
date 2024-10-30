@@ -1,4 +1,4 @@
-{% set version_env = "0.4.31" %}
+{% set version_env = environ.get('JAX_VERSION', '0.4.34') %}
 
 package:
   name: jaxlib
