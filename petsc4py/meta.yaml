@@ -1,10 +1,10 @@
+{% set name = 'petsc4py' %}
 {% set version = environ.get('PETSC_VERSION', '3.21.5') %}
-{% set build = 1000 %}
-{% set name = "petsc4py" %}
 {% set version_xy = version.rsplit('.', 1)[0] %}
+{% set build = 1000 %}
 
 package:
-  name: petsc4py
+  name: {{ name }}
   version: '{{ version }}_derecho'
 
 source:
