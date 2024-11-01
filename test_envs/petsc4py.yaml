@@ -1,0 +1,8 @@
+# conda env create -f mpi4py.yaml -p mpi4py-testenv -d
+name: petsc4py-testenv
+channels:
+  - file:///glade/derecho/scratch/benkirk/conda-recipes/output
+  - conda-forge
+dependencies:
+  - python
+  - petsc4py =*_derecho

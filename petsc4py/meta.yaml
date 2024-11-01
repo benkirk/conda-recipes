@@ -1,0 +1,44 @@
+{% set version = environ.get('PETSC_VERSION', '3.21.5') %}
+{% set build = 1000 %}
+{% set name = "petsc4py" %}
+{% set version_xy = version.rsplit('.', 1)[0] %}
+
+package:
+  name: petsc4py
+  version: '{{ version }}_derecho'
+
+source:
+  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
+
+build:
+  number: {{ build }}
+  string: py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+
+  script:
+    - {{ PYTHON }} conf/cythonize.py
+    - export PETSC_DIR=$PREFIX
+    - {{ PYTHON }} -m pip -v install --no-deps .
+
+requirements:
+  build:
+    - python
+    - cython
+    - pip
+    - setuptools
+    - numpy
+    - petsc {{ version_xy }}.*_derecho
+  run:
+    - python
+    - petsc =*_derecho # pinned by petsc run_exports
+
+test:
+  requires:
+    - pip
+  commands:
+    - pip check
+
+about:
+  home: https://bitbucket.org/petsc/petsc4py
+  summary: Python bindings for PETSc
+  license: BSD-2-Clause
+  license_file: LICENSE.rst
