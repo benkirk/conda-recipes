@@ -16,7 +16,7 @@ build:
 
   script:
     - {{ PYTHON }} conf/cythonize.py
-    - export PETSC_DIR=$PREFIX
+    - export PETSC_DIR=${PREFIX}
     - {{ PYTHON }} -m pip -v install --no-deps .
 
 requirements:

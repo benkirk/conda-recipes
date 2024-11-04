@@ -1,0 +1,68 @@
+{% set version = os.environ.get("H5PY_VERSION","3.12.1") %}
+
+package:
+  name: h5py
+  version: '{{ version }}_derecho'
+
+source:
+  url: https://github.com/h5py/h5py/archive/{{ version }}.tar.gz
+
+build:
+  number: 1000
+  string: {{ environ.get('NCAR_BUILD_ENV').replace('derecho-','').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+
+  # we're really abusing conda-build here.  This package will only work
+  # on Derecho with cray-mpich - therefore it will have many dependent
+  # shared libraries outside the conda-build source tree.  That's OK,
+  # if distasteful.  Allow it.
+  host_runpath_whitelist:
+    - '/opt/cray/*'
+    - '/glade/u/apps/*'
+  missing_dso_whitelist:
+    - '*/libhdf5*.so.*'
+    - '*/libfabric.so.*'
+    - '*/libmpi_*.so*'
+    - '*/libpals.so.*'
+    - '*/libpmi*.so.*'
+    - '*/libpthread.so.*'
+    - '/lib64/ld-linux-x86-64.so.*'
+    - '/lib64/libc.so.*'
+    - '/lib64/libdl.so.*'
+    - '/lib64/libgcc_s.so.*'
+    - '/lib64/libm.so.*'
+    - '/lib64/librt.so.*'
+    - '/lib64/libutil.so.*'
+    - '/usr/lib64/libgomp.so.*'
+    - '/usr/lib64/libnuma.so.*'
+    - '/usr/lib64/libstdc++.so.*'
+requirements:
+  # ref: https://github.com/conda-forge/h5py-feedstock/blob/main/recipe/meta.yaml
+  build:
+    - python
+    - cython >=0.29.31,<4
+    - mpi4py =*_derecho
+    - numpy
+    - pip
+    - pkgconfig
+    - setuptools
+  run:
+    - python
+    - cached-property
+    - mpi4py =*_derecho
+
+test:
+  requires:
+    - pip
+    - pytest
+    - pytest-mpi
+  imports:
+    - h5py
+  commands:
+    - pip check
+
+about:
+  home: http://www.h5py.org/
+  license: BSD-3-Clause
+  license_file: licenses/license.txt
+  summary: Read and write HDF5 files from Python
+  dev_url: https://github.com/h5py/h5py

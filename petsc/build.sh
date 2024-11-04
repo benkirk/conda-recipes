@@ -1,10 +1,7 @@
 #!/usr/bin/env bash
 
-#env
-
 source ${RECIPE_DIR}/../profile.d/modules.sh >/dev/null 2>&1
 module unload conda cudnn >/dev/null 2>&1
-
 
 case "${PETSC_CUDA_VERSION}" in
     "None")
@@ -12,7 +9,7 @@ case "${PETSC_CUDA_VERSION}" in
         petsc_cuda_args="--disable-cuda"
         ;;
     *)
-        petsc_cuda_args="--enable-cuda --with-viennacl=1 --download-viennacl=yes"
+        petsc_cuda_args="--enable-cuda --with-viennacl=1 --download-viennacl=yes --with-raja=1 --download-raja=yes"
         ;;
 esac
 
@@ -20,37 +17,44 @@ esac
 module list
 
 BLAS_LAPACK="-L${NCAR_ROOT_MKL}/lib -Wl,-rpath,${NCAR_ROOT_MKL}/lib -lmkl_intel_lp64 -lmkl_sequential -lmkl_core"
-export PETSC_DIR=${SRC_DIR}
-export PETSC_ARCH=${NCAR_BUILD_ENV}
 unset CC CXX FC F77
 
 # Get an updated config.sub and config.guess
 cp ${BUILD_PREFIX}/share/gnuconfig/config.* .
 
+export PETSC_DIR=${SRC_DIR}
+export PETSC_ARCH=${NCAR_BUILD_ENV}
+
 ./configure --help
 
 set -ex
 
+# Notes:
+# when using trilinos, do not also use ml. (ml is embedded inside trilinos)
+# trilinos wants netcdf, hdf5.
+# Trilinos cannot currently support SuperLU and SuperLU_DIST in the same configuration
+# Cannot use ml with 64-bit integers, it is not coded for this capability
+#     --with-ml=1           --download-ml=yes \
+# Cannot use SuperLU with 64-bit integers, it is not coded for this capability
+#     --with-superlu=1      --download-superlu=yes \
+#     --with-superlu_dist=1 --download-superlu_dist=yes \
+# $SRC_DIR/src/ts/impls/implicit/sundials/sundials.c:607:16: error: conflicting types for 'TSSundialsGetIterations'; have 'PetscErrorCode(struct _p_TS *, int *, int *)' {aka 'int(struct _p_TS *, int *, int *)'}
+#     --with-sundials2=1    --download-sundials2=yes \
+
 ./configure \
     --prefix=${PREFIX} \
+    --with-64-bit-indices \
     --with-cc=$(which mpicc) --COPTFLAGS="-O3 -Wno-deprecated-declarations" \
     --with-cxx=$(which mpicxx) --CXXOPTFLAGS="-O3 -Wno-deprecated-declarations" \
     --with-fc=$(which mpif90) --FOPTFLAGS="-O3 -Wno-deprecated-declarations" \
-    --CUDAOPTFLAGS="-O3 -Wno-deprecated-declarations" \
+    --CUDAOPTFLAGS="-O3 -Wno-deprecated-declarations" ${petsc_cuda_args} \
     --with-shared-libraries --with-debugging=0 \
     --with-blaslapack-lib="${BLAS_LAPACK}" \
-    --with-metis=1     --download-metis=yes \
-    --with-ml=1           --download-ml=yes \
-    --with-parmetis=1     --download-parmetis=yes \
     --with-hypre=1        --download-hypre=yes \
+    --with-metis=1        --download-metis=yes \
+    --with-parmetis=1     --download-parmetis=yes \
     --with-scalapack=1    --download-scalapack=yes \
-    --with-sowing=0 \
-    --with-spooles=1      --download-spooles=yes \
     --with-suitesparse=1  --download-suitesparse=yes \
-    --with-superlu=1      --download-superlu=yes \
-    --with-superlu_dist=1 --download-superlu_dist=1 \
-    --with-triangle=1     --download-triangle=yes \
-    --with-tetgen=1       --download-tetgen=yes ${petsc_cuda_args} \
     || { cat configure.log; exit 1; }
 
 # sedinplace() {
@@ -73,7 +77,6 @@ set -ex
 #         sedinplace s%$path%\${PREFIX}%g $f
 #     done
 # done
-
 
 make MAKE_NP=8
 make install
@@ -109,21 +112,25 @@ rm -fr ${PREFIX}/share/petsc/datafiles
 
 cd ${PETSC_DIR}/src/snes/tutorials/ && gmake V=1 ex12 ex19
 
-
-exit 0
-
-
-
-
-
-
-
-
+# create an activate script
+mkdir -p "${PREFIX}/etc/conda/activate.d"
+cat <<EOF > "${PREFIX}/etc/conda/activate.d/${PKG_NAME}_activate.sh"
+export ${PKG_NAME}_hostdeps_LD_LIBRARY_PATH="${LD_LIBRARY_PATH}"
+export LD_LIBRARY_PATH="\${${PKG_NAME}_hostdeps_LD_LIBRARY_PATH}:\${LD_LIBRARY_PATH}"
+export PETSC_DIR="\${CONDA_PREFIX}"
+export PETSC_VERSION="${PKG_VERSION}"
+EOF
 
 
-#cd ${PETSC_DIR}/src/snes/tutorials/ || exit 1
-#gmake V=1 ex12 ex19
+mkdir -p "${PREFIX}/etc/conda/deactivate.d"
+cat <<EOF > "${PREFIX}/etc/conda/deactivate.d/${PKG_NAME}_deactivate.sh"
+export LD_LIBRARY_PATH="\${LD_LIBRARY_PATH#"\${${PKG_NAME}_hostdeps_LD_LIBRARY_PATH}:"}"
+unset ${PKG_NAME}_hostdeps_LD_LIBRARY_PATH
+unset PETSC_DIR
+unset PETSC_VERSION
+EOF
 
-echo && echo && echo "Done at $(date)"
-
-# mpirun -np 4 ./ex19 -da_refine 3 -snes_monitor -dm_mat_type mpiaijcusparse -dm_vec_type mpicuda -pc_type gamg -pc_gamg_esteig_ksp_max_it 10 -ksp_monitor  -mg_levels_ksp_max_it 3 -log_view
+for fname in ${PREFIX}/etc/conda/*activate.d/${PKG_NAME}_*activate.sh; do
+    echo && echo && echo "# ${fname}:"
+    cat ${fname}
+done

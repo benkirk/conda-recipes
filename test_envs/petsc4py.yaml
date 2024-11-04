@@ -6,3 +6,4 @@ channels:
 dependencies:
   - python
   - petsc4py =*_derecho
+  - pkg-config
