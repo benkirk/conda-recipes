@@ -2,7 +2,7 @@
 
 package:
   name: jaxlib
-  version: '{{ version_env }}_derecho'
+  version: '{{ version_env }}'
 
 source:
    - path: ../profile.d/modules.sh

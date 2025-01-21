@@ -2,11 +2,11 @@
 
 package:
   name: pytorch
-  version: '{{ version_env }}_derecho'
+  version: '{{ version_env }}'
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','_') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
   script_env:
     - NCAR_BUILD_ENV
 

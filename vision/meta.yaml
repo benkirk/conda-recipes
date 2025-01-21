@@ -3,11 +3,11 @@
 
 package:
   name: torchvision
-  version: '{{ version_env }}_derecho'
+  version: '{{ version_env }}'
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: {{ environ.get('NCAR_BUILD_ENV_COMPILER').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_BUILD_ENV_COMPILER').replace('-','_') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
   script_env:
     - NCAR_BUILD_ENV
     - NCAR_BUILD_ENV_COMPILER
@@ -64,7 +64,7 @@ requirements:
     #- _openmp_mutex #>=4.5
     - numpy <2
     - pillow !=8.3.*,>=5.3.0
-    - pytorch=={{ pytorch_version_env }}_derecho
+    - pytorch=={{ pytorch_version_env }}=*derecho*
     - libjpeg-turbo
     - libpng
 

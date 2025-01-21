@@ -11,15 +11,15 @@
 
 package:
   name: petsc
-  version: '{{ version }}_derecho'
+  version: '{{ version }}'
 
 source:
   url: https://web.cels.anl.gov/projects/petsc/download/release-snapshots/petsc-{{ version }}.tar.gz
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','.') }}_{{ PKG_BUILDNUM }} # [cuda_version == "None"]
-  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','.') }}_cuda{{ cuda_major }}_{{ PKG_BUILDNUM }} # [cuda_version != "None"]
+  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','_') }}_{{ PKG_BUILDNUM }} # [cuda_version == "None"]
+  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','_') }}_cuda{{ cuda_major }}_{{ PKG_BUILDNUM }} # [cuda_version != "None"]
 
   script_env:
     - PETSC_CUDA_VERSION={{ cuda_version }}

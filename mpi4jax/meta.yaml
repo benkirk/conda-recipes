@@ -3,7 +3,7 @@
 
 package:
   name: {{ name|lower }}
-  version: '{{ version_env }}_derecho'
+  version: '{{ version_env }}'
 
 source:
    - url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version_env }}.tar.gz
@@ -61,8 +61,8 @@ requirements:
     - python
     - numpy
     - mpi4py =*=*derecho*
-    - jaxlib ==0.4.33_derecho
-    - jax ==0.4.33_derecho
+    - jaxlib ==0.4.33=*derecho*
+    - jax ==0.4.33=*derecho*
     - libgcc >=12
     - libstdcxx >=12
 

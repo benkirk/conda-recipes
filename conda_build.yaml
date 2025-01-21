@@ -6,4 +6,4 @@ dependencies:
   - conda-build
   - conda-tree
   - conda-verify
-  #- conda-libmamba-solver =24.9.* # 24.11 can't handle wildcard like "- mpi4py =*_derecho"
+  - conda-libmamba-solver =24.9.* # 24.11 can't handle wildcard like "- mpi4py =*_derecho"

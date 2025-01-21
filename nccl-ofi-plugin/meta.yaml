@@ -3,11 +3,11 @@
 
 package:
   name: nccl
-  version: '{{ version|replace("-", ".") }}_derecho'
+  version: '{{ version|replace("-", ".") }}'
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: {{ environ.get('NCAR_HOST') }}_ofi.plugin_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_HOST') }}_ofi_plugin_{{ PKG_BUILDNUM }}
 
   # we're really abusing conda-build here.  This package will only work
   # on Derecho with cray-mpich - therefore it will have many dependent

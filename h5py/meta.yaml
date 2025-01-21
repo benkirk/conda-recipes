@@ -2,14 +2,14 @@
 
 package:
   name: h5py
-  version: '{{ version }}_derecho'
+  version: '{{ version }}'
 
 source:
   url: https://github.com/h5py/h5py/archive/{{ version }}.tar.gz
 
 build:
   number: 1000
-  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','_') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
 
   # we're really abusing conda-build here.  This package will only work
   # on Derecho with cray-mpich - therefore it will have many dependent

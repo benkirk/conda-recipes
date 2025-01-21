@@ -2,7 +2,7 @@
 
 package:
   name: jax
-  version: '{{ version_env }}_derecho'
+  version: '{{ version_env }}'
 
 source:
    - path: ../profile.d/modules.sh
@@ -64,7 +64,7 @@ requirements:
     - ml_dtypes >=0.2.0
     - importlib-metadata >=4.6
     - libgcc >=12
-    - jaxlib =={{ version_env }}*=*derecho*
+    - jaxlib =={{ version_env }}=*derecho*
 
 test:
   imports:

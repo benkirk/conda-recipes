@@ -22,7 +22,7 @@ for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
         make -C ${top_dir} conda-build-mpi4py
     done
 
-    for JAX_VERSION in 0.4.{31,32,33}; do
+    for JAX_VERSION in 0.4.33; do
         export JAX_VERSION
         make -C ${top_dir} conda-build-{jaxlib,jax}
     done
@@ -35,6 +35,9 @@ for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
         export PETSC_CUDA_VERSION
         make -C ${top_dir} conda-build-{petsc,petsc4py}
     done
+
+    export H5PY_VERSION="3.12.1"
+    make -C ${top_dir} conda-build-h5py
 
     for pair in "${PYTORCH_VISIONS[@]}"; do
         export PYTORCH_VERSION=$(echo ${pair} | cut -d ':' -f1)
