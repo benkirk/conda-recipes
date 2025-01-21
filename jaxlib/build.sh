@@ -10,7 +10,7 @@ echo "pip=$(which pip)"
 
 source modules.sh >/dev/null 2>&1
 module unload mkl conda >/dev/null 2>&1
-module load cudnn/9 >/dev/null 2>&1
+module load cudnn >/dev/null 2>&1
 module list
 
 PIP_NO_DEPENDENCIES=False
@@ -35,8 +35,6 @@ python -m \
 
 conda list
 
-#module purge >/dev/null 2>&1
-#module load cuda/12.2.1 cudnn/9
 module list
 echo "LD_LIBRARY_PATH=${LD_LIBRARY_PATH}"
 

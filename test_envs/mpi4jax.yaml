@@ -5,7 +5,7 @@ channels:
 
 dependencies:
   - python #=3.11
-  - mpi4jax =*_derecho
-  - mpi4py =*_derecho
+  - mpi4jax =*=*derecho*
+  - mpi4py =*=*derecho*
   - matplotlib
   - tqdm

@@ -30,8 +30,7 @@ conda-build-%: %/
 	$(config_conda_build) && conda-build --python $(ENV_PYTHON_VERSION) $($*_extra_channels) --channel conda-forge --output-folder output/ $($*_extra_args) ./$< 2>&1 | tee logs/$*.log
 
 pbs-build-%: %
-	PATH=/glade/derecho/scratch/vanderwb/experiment/pbs-bashfuncs/bin:$$PATH ;\
-          qcmd -q main -A $(PBS_ACCOUNT) -l walltime=2:00:00 -l select=1:ncpus=128 -l job_priority=premium \
+	qcmd -q main -A $(PBS_ACCOUNT) -l walltime=2:00:00 -l select=1:ncpus=128 -l job_priority=premium \
           -- $(MAKE) conda-build-$*
 
 clean:

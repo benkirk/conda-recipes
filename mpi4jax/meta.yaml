@@ -11,7 +11,7 @@ source:
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: cuda12_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_HOST') }}_cuda12_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
 
   # we're really abusing conda-build here.  This package will only work
   # on Derecho with cray-mpich - therefore it will have many dependent
@@ -53,16 +53,16 @@ requirements:
   build:
     - python
     - cython
-    - mpi4py =*_derecho
-    - jaxlib ==0.4.31_derecho
-    - jax ==0.4.31_derecho
+    - mpi4py =*=*derecho*
+    - jaxlib ==0.4.33_derecho
+    - jax ==0.4.33_derecho
 
   run:
     - python
     - numpy
-    - mpi4py =*_derecho
-    - jaxlib ==0.4.31_derecho
-    - jax ==0.4.31_derecho
+    - mpi4py =*=*derecho*
+    - jaxlib ==0.4.33_derecho
+    - jax ==0.4.33_derecho
     - libgcc >=12
     - libstdcxx >=12
 

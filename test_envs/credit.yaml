@@ -13,7 +13,7 @@ dependencies:
   - dask-jobqueue
   - distributed
   - matplotlib
-  - mpi4py =*_derecho
+  - mpi4py =*=*derecho*
   - netcdf4
   - numpy<1.24
   - pandas
@@ -21,10 +21,10 @@ dependencies:
   - pyarrow
   - pyg
   - pytest
-  - pytorch =*_derecho
+  - pytorch =*=*derecho*
   - pyyaml
   - scikit-learn
-  - torchvision =*_derecho
+  - torchvision =*=*derecho*
   - wandb
   - xarray
   - xesmf

@@ -7,7 +7,7 @@ echo "PYTHON=${PYTHON}"
 
 source modules.sh >/dev/null 2>&1
 module unload mkl conda >/dev/null 2>&1
-module load cudnn/8.8.1.3-12 >/dev/null 2>&1
+module load cudnn >/dev/null 2>&1
 module list
 
 PIP_NO_DEPENDENCIES=False

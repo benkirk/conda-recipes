@@ -9,7 +9,7 @@ source:
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: cuda12_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_HOST') }}_cuda12_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
 
   # we're really abusing conda-build here.  This package will only work
   # on Derecho with cray-mpich - therefore it will have many dependent
@@ -61,8 +61,8 @@ requirements:
     - importlib-metadata >=4.6
 
   run:
-    - nccl =*_derecho
-    - mpi4py =*_derecho
+    - nccl =*=*derecho*
+    - mpi4py =*=*derecho*
     - numpy >=1.24
     - opt-einsum
     - scipy >=1.10

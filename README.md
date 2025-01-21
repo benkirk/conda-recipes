@@ -65,18 +65,18 @@ dependencies:
   - python
   - libblas =*=*mkl
   - numpy
-  - mpi4py =*_derecho
+  - mpi4py =*=*derecho*
   - xarray
   - pandas
-  - pytorch =*_derecho
-  - torchvision =*_derecho
+  - pytorch =*=*derecho*
+  - torchvision =*=*derecho*
 ```
 The special version string `*_derecho` can be used to force the dependecy solver to use our local packages regardless of overall channel priority.
 
 ## Support for multiple package, python versions
 The script `./utils/build_all.sh` will loop over 3 Python versions and various versions of the supported tools, building `conda` packages for each.
 ```bash
-#!/usr/bin/env bash                                                                                                     
+#!/usr/bin/env bash
 
 set -e
 

@@ -9,7 +9,7 @@ source:
 
 build:
   number: 1000
-  string: {{ environ.get('NCAR_BUILD_ENV').replace('derecho-','').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_BUILD_ENV').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
 
   # we're really abusing conda-build here.  This package will only work
   # on Derecho with cray-mpich - therefore it will have many dependent
@@ -40,7 +40,7 @@ requirements:
   build:
     - python
     - cython >=0.29.31,<4
-    - mpi4py =*_derecho
+    - mpi4py =*=*derecho*
     - numpy
     - pip
     - pkgconfig
@@ -48,7 +48,7 @@ requirements:
   run:
     - python
     - cached-property
-    - mpi4py =*_derecho
+    - mpi4py =*=*derecho*
 
 test:
   requires:

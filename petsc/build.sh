@@ -9,7 +9,7 @@ case "${PETSC_CUDA_VERSION}" in
         petsc_cuda_args="--disable-cuda"
         ;;
     *)
-        petsc_cuda_args="--enable-cuda --with-viennacl=1 --download-viennacl=yes --with-raja=1 --download-raja=yes"
+        petsc_cuda_args='--enable-cuda --CUDAOPTFLAGS="-O3 -Wno-deprecated-declarations" --with-cuda-arch=80 --with-viennacl=1 --download-viennacl=yes --with-raja=1 --download-raja=yes'
         ;;
 esac
 
@@ -47,7 +47,7 @@ set -ex
     --with-cc=$(which mpicc) --COPTFLAGS="-O3 -Wno-deprecated-declarations" \
     --with-cxx=$(which mpicxx) --CXXOPTFLAGS="-O3 -Wno-deprecated-declarations" \
     --with-fc=$(which mpif90) --FOPTFLAGS="-O3 -Wno-deprecated-declarations" \
-    --CUDAOPTFLAGS="-O3 -Wno-deprecated-declarations" ${petsc_cuda_args} \
+    ${petsc_cuda_args} \
     --with-shared-libraries --with-debugging=0 \
     --with-blaslapack-lib="${BLAS_LAPACK}" \
     --with-hypre=1        --download-hypre=yes \

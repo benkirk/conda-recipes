@@ -7,7 +7,7 @@ package:
 
 build:
   number: 1000 # high priortity over other matches at same version
-  string: {{ environ.get('NCAR_BUILD_ENV_COMPILER').replace('derecho-','').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
+  string: {{ environ.get('NCAR_BUILD_ENV_COMPILER').replace('-','.') }}_py{{ PY_VER }}_{{ PKG_BUILDNUM }}
   script_env:
     - NCAR_BUILD_ENV
     - NCAR_BUILD_ENV_COMPILER
