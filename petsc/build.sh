@@ -9,7 +9,7 @@ case "${PETSC_CUDA_VERSION}" in
         petsc_cuda_args="--disable-cuda"
         ;;
     *)
-        petsc_cuda_args='--enable-cuda --CUDAOPTFLAGS="-O3 -Wno-deprecated-declarations" --with-cuda-arch=80 --with-viennacl=1 --download-viennacl=yes --with-raja=1 --download-raja=yes'
+        petsc_cuda_args="--enable-cuda --CUDAOPTFLAGS=-O3 --with-cuda-arch=80 --with-viennacl=1 --download-viennacl=yes --with-raja=1 --download-raja=yes"
         ;;
 esac
 

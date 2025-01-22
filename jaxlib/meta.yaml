@@ -61,8 +61,8 @@ requirements:
     - importlib-metadata >=4.6
 
   run:
-    - nccl =*=*derecho*
-    - mpi4py =*=*derecho*
+    - nccl =*=derecho*
+    - mpi4py =*=derecho*
     - numpy >=1.24
     - opt-einsum
     - scipy >=1.10

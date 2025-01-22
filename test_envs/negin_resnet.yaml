@@ -6,8 +6,8 @@ dependencies:
   - python #=3.11.*
   - libblas=*=*mkl
   - numpy
-  - mpi4py #=*derecho
+  - mpi4py #=derecho
   - xarray
   - pandas
   - pytorch #=2*derecho
-  - torchvision #=*derecho
+  - torchvision #=derecho

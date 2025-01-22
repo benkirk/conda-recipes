@@ -52,14 +52,14 @@ build:
 requirements:
   build:
     - python
-    - nccl =*=*derecho*
+    - nccl =*=derecho*
     - pkg-config
     - rsync
 
   run:
     - python
-    - nccl =*=*derecho*
-    - mpi4py =*=*derecho*
+    - nccl =*=derecho*
+    - mpi4py =*=derecho*
     - numpy >=1.24
     - opt-einsum
     - scipy >=1.10

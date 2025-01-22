@@ -40,7 +40,7 @@ requirements:
   build:
     - python
     - cython >=0.29.31,<4
-    - mpi4py =*=*derecho*
+    - mpi4py =*=derecho*
     - numpy
     - pip
     - pkgconfig
@@ -48,7 +48,7 @@ requirements:
   run:
     - python
     - cached-property
-    - mpi4py =*=*derecho*
+    - mpi4py =*=derecho*
 
 test:
   requires:

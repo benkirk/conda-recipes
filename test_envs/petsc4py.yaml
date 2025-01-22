@@ -5,5 +5,5 @@ channels:
   - conda-forge
 dependencies:
   - python
-  - petsc4py =*=*derecho*
+  - petsc4py =*=derecho*
   - pkg-config

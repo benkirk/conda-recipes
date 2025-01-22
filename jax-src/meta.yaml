@@ -52,7 +52,7 @@ build:
 requirements:
   build:
     - python
-    - nccl =*=*derecho*
+    - nccl =*=derecho*
     - pkg-config
     - rsync
     - jaxlib =={{ version_env }}_derecho

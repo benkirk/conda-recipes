@@ -65,11 +65,11 @@ dependencies:
   - python
   - libblas =*=*mkl
   - numpy
-  - mpi4py =*=*derecho*
+  - mpi4py =*=derecho*
   - xarray
   - pandas
-  - pytorch =*=*derecho*
-  - torchvision =*=*derecho*
+  - pytorch =*=derecho*
+  - torchvision =*=derecho*
 ```
 The special version string `*_derecho` can be used to force the dependecy solver to use our local packages regardless of overall channel priority.
 

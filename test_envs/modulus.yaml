@@ -10,11 +10,11 @@ dependencies:
   - conda-tree
   - h5py # needed for modulus-examples/examples/weather/graphcast
   - hdf5 =1.12.*
-  - mpi4py =*=*derecho*
+  - mpi4py =*=derecho*
   - netcdf4
   - numpy <2
-  - pytorch =2.3.*=*derecho*
-  - torchvision =*=*derecho*
+  - pytorch =2.3.*=derecho*
+  - torchvision =*=derecho*
   #- dgl=2.0.*
   - pip
   - pip:

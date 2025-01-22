@@ -56,15 +56,15 @@ requirements:
 
   run:
     - python
-    - nccl =*=*derecho*
-    - mpi4py =*=*derecho*
+    - nccl =*=derecho*
+    - mpi4py =*=derecho*
     - numpy >=1.24
     - opt-einsum
     - scipy >=1.10
     - ml_dtypes >=0.2.0
     - importlib-metadata >=4.6
     - libgcc >=12
-    - jaxlib =={{ version_env }}=*derecho*
+    - jaxlib =={{ version_env }}=derecho*
 
 test:
   imports:

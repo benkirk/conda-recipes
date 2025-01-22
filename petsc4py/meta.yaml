@@ -26,10 +26,10 @@ requirements:
     - pip
     - setuptools
     - numpy
-    - petsc ={{ version_xy }}*=*derecho*
+    - petsc ={{ version_xy }}*=derecho*
   run:
     - python
-    - petsc =*=*derecho* # pinned by petsc run_exports
+    - petsc =*=derecho* # pinned by petsc run_exports
 
 test:
   requires:

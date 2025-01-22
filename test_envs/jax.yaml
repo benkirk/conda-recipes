@@ -5,5 +5,5 @@ channels:
 
 dependencies:
   - python #=3.11
-  - jax ==0.4.31_derecho
+  - jax ==0.4.34=derecho*
   - pip

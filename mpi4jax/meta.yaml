@@ -53,16 +53,16 @@ requirements:
   build:
     - python
     - cython
-    - mpi4py =*=*derecho*
-    - jaxlib ==0.4.33_derecho
-    - jax ==0.4.33_derecho
+    - mpi4py =*=derecho*
+    - jaxlib ==0.4.33=derecho*
+    - jax ==0.4.33=derecho*
 
   run:
     - python
     - numpy
-    - mpi4py =*=*derecho*
-    - jaxlib ==0.4.33=*derecho*
-    - jax ==0.4.33=*derecho*
+    - mpi4py =*=derecho*
+    - jaxlib ==0.4.33=derecho*
+    - jax ==0.4.33=derecho*
     - libgcc >=12
     - libstdcxx >=12
 

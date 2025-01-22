@@ -31,7 +31,7 @@ for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
     make -C ${top_dir} conda-build-mpi4jax
 
     export PETSC_VERSION="3.21.6"
-    for PETSC_CUDA_VERSION in "None" "12.3"; do
+    for PETSC_CUDA_VERSION in "12.3"; do
         export PETSC_CUDA_VERSION
         make -C ${top_dir} conda-build-{petsc,petsc4py}
     done

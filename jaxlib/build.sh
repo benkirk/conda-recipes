@@ -10,7 +10,7 @@ echo "pip=$(which pip)"
 
 source modules.sh >/dev/null 2>&1
 module unload mkl conda >/dev/null 2>&1
-module load cudnn >/dev/null 2>&1
+module load cudnn/9.2.0.82-12 >/dev/null 2>&1
 module list
 
 PIP_NO_DEPENDENCIES=False

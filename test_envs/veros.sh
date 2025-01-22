@@ -20,13 +20,13 @@ channels:
 
 dependencies:
   - python =3.11
-  - jax =*=*derecho*
-  - jaxlib =*=*derecho*
-  - h5py =*=*derecho*
-  - mpi4jax =*=*derecho*
-  - mpi4py =*=*derecho*
+  - jax =*=derecho*
+  - jaxlib =*=derecho*
+  - h5py =*=derecho*
+  - mpi4jax =*=derecho*
+  - mpi4py =*=derecho*
   - numpy <2
-  - petsc4py =*=*derecho*
+  - petsc4py =*=derecho*
   - pip
   - pip:
      - setuptools
