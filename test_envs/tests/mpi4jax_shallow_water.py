@@ -42,7 +42,7 @@ mpi_rank = mpi_comm.Get_rank()
 mpi_size = mpi_comm.Get_size()
 
 # on GPU, put each process on its own device
-os.environ["CUDA_VISIBLE_DEVICES"] = str(mpi_rank)
+#os.environ["CUDA_VISIBLE_DEVICES"] = str(mpi_rank)
 
 import jax  # noqa: E402
 import jax.numpy as jnp  # noqa: E402

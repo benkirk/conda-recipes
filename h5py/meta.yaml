@@ -41,7 +41,7 @@ requirements:
     - python
     - cython >=0.29.31,<4
     - mpi4py =*=derecho*
-    - numpy
+    - numpy >=1.24
     - pip
     - pkgconfig
     - setuptools

@@ -4,7 +4,7 @@ channels:
   - conda-forge
 
 dependencies:
-  - python #=3.11
+  - python =3.11
   - mpi4jax =*=derecho*
   - mpi4py =*=derecho*
   - matplotlib

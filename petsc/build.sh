@@ -47,7 +47,6 @@ set -ex
     --with-cc=$(which mpicc) --COPTFLAGS="-O3 -Wno-deprecated-declarations" \
     --with-cxx=$(which mpicxx) --CXXOPTFLAGS="-O3 -Wno-deprecated-declarations" \
     --with-fc=$(which mpif90) --FOPTFLAGS="-O3 -Wno-deprecated-declarations" \
-    ${petsc_cuda_args} \
     --with-shared-libraries --with-debugging=0 \
     --with-blaslapack-lib="${BLAS_LAPACK}" \
     --with-hypre=1        --download-hypre=yes \
@@ -55,6 +54,7 @@ set -ex
     --with-parmetis=1     --download-parmetis=yes \
     --with-scalapack=1    --download-scalapack=yes \
     --with-suitesparse=1  --download-suitesparse=yes \
+    ${petsc_cuda_args} \
     || { cat configure.log; exit 1; }
 
 # sedinplace() {

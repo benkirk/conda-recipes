@@ -60,12 +60,12 @@ build:
 requirements:
   build:
     - make
-    - cmake
+    - cmake <4
     - pkg-config
     - python
     - gnuconfig
   run:
-    - python
+    #- python
 
 test:
   requires:

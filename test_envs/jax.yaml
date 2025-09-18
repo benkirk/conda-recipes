@@ -4,6 +4,6 @@ channels:
   - conda-forge
 
 dependencies:
-  - python #=3.11
-  - jax ==0.4.34=derecho*
+  - python =3.11
+  - jax =*=derecho*
   - pip

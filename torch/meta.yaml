@@ -57,7 +57,8 @@ requirements:
   run:
     - python
     #- llvm-openmp
-    - cusparselt==0.6.2.3
+    - cusparselt==0.7.1.0
+    - libcudss==0.5.0.16
     #- libstdcxx-ng #>=12.2
     #- libgcc-ng #>=12.2
     #- _openmp_mutex #>=4.5

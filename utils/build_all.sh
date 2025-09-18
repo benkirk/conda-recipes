@@ -11,8 +11,8 @@ module list
 make -C ${top_dir} conda-build-nccl-ofi-plugin
 
 PYTHONS=("3.12" "3.11" "3.10")
-MPI4PYS=("4.0.1" "3.1.6")
-PYTORCH_VISIONS=("2.5.1:0.20.1" "2.4.1:0.19.1" "2.3.1:0.18.1")
+MPI4PYS=("4.0.3" "3.1.6")
+PYTORCH_VISIONS=("2.7.0:0.22.0" "2.6.0:0.21.0" "2.5.1:0.20.1")
 
 for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
     export ENV_PYTHON_VERSION
@@ -22,12 +22,12 @@ for ENV_PYTHON_VERSION in "${PYTHONS[@]}" ; do
         make -C ${top_dir} conda-build-mpi4py
     done
 
-    for JAX_VERSION in 0.4.33; do
+    for JAX_VERSION in 0.4.38; do
         export JAX_VERSION
         make -C ${top_dir} conda-build-{jaxlib,jax}
     done
 
-    export MPIJAX_VERSION=0.5.4
+    export MPIJAX_VERSION=0.7.1
     make -C ${top_dir} conda-build-mpi4jax
 
     export PETSC_VERSION="3.21.6"
